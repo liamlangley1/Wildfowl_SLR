@@ -69,18 +69,18 @@ acc_plot <- ggplot() +
                        size = 1.2, col = "#FF9933") +
              labs(x = "Year", y = "Cumulative Papers") +
              theme(axis.text=element_text(colour="black"),
-               ##Hide panel borders and remove grid lines
-               legend.position = "none",
-               panel.border = element_blank(),
-               panel.grid.major = element_blank(),
-               panel.grid.minor = element_blank(),
-               panel.background = element_blank(),
-               axis.title.x = element_text(size = 15),
-               axis.text.x = element_text(hjust=0.7),
-               axis.title.y = element_text(angle=90, vjust = 0.4, size = 15),
-               axis.text.y = element_text(hjust=0.7,vjust=0.3),
-               strip.text.x = element_text(size = 15),
-               strip.text.y = element_text(size = 15))
+                   ##Hide panel borders and remove grid lines
+                   legend.position = "none",
+                   panel.border = element_blank(),
+                   panel.grid.major = element_blank(),
+                   panel.grid.minor = element_blank(),
+                   panel.background = element_blank(),
+                   axis.title.x = element_text(size = 15),
+                   axis.text.x = element_text(hjust=0.7),
+                   axis.title.y = element_text(angle=90, vjust = 0.4, size = 15),
+                   axis.text.y = element_text(hjust=0.7,vjust=0.3),
+                   strip.text.x = element_text(size = 15),
+                   strip.text.y = element_text(size = 15))
 
 
 ## Define parameters for reading out plot
