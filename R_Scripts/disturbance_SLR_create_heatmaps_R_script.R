@@ -84,8 +84,8 @@ a <- ggplot() +
             panel.background = element_rect(fill = "#CCCCCC"),
             axis.title.x = element_text(size = 12),
             axis.text.x = element_text(hjust=1, angle = 45),
-            axis.title.y = element_text(angle=45, vjust = 0.4, size = 12),
-            axis.text.y = element_text(hjust=0.7, angle = 90, vjust=0.3))
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
 
 ## Define parameters for reading out plot
