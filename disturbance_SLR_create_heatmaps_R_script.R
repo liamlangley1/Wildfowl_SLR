@@ -64,7 +64,7 @@ names(df_RTTG)[1] <- "Response_Type"
 names(df_RTTG)[2] <- "Taxonomic_Group"
 names(df_RTTG)[3] <- "NPapers"
 
-##create heatmap from raw data
+##create heatmap from df_ID
 
 a <- ggplot() + 
       geom_bin2d(data = df_ID, aes(x = Response_Type, y = Taxonomic_Group)) +
@@ -84,7 +84,7 @@ a <- ggplot() +
             panel.background = element_rect(fill = "#CCCCCC"),
             axis.title.x = element_text(size = 12),
             axis.text.x = element_text(hjust=1, angle = 45),
-            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.title.y = element_text(angle=45, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 90, vjust=0.3))
 
 
@@ -109,7 +109,7 @@ out_path <- here("Outputs", "Heatmaps")
 
 ggsave(plot = a, filename = "dslr_wildfowling_taxonomic_group_by_response_type_heatmap.tiff",
        device = device,
-       path = out_path ,units = units, width = 150, height = 200, dpi = dpi,   
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
 )
 
 
@@ -149,7 +149,7 @@ names(df_RTTGDT)[2] <- "Taxonomic_Group"
 names(df_RTTGDT)[3] <- "Disturbance_Type"
 names(df_RTTGDT)[4] <- "NPapers"
 
-##create heatmap
+##create heatmap from df_ID2
 
 b <- ggplot() + 
       geom_bin2d(data = df_ID2, aes(x = Response_Type, y = Taxonomic_Group)) +
@@ -174,23 +174,6 @@ b <- ggplot() +
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
-
-## Define parameters for reading out plot
-## Define device to read plots out as e.g. tiff/jpeg
-
-device <- "tiff"
-
-## define units for plot size - usually mm
-
-units <- "mm"
-
-## define plot resolution in dpi - 300 usually minimum
-
-dpi <- 300
-
-## define filepath to read out plots 
-
-out_path <- here("Outputs", "Heatmaps")
 
 ## save plot
 
@@ -217,23 +200,56 @@ df_rec$sum <- 1
 ## functions as a check for the heatmap
 ##first need to aggregate by paper ID - multiple behavioural responses in one paper
 
-df_ID3 <- with(df_rec, aggregate(sum, by = list(Paper_ID, Taxonomic_group, Disturbance_Sp), "sum"))
+df_ID3 <- with(df_rec, aggregate(sum, by = list(Paper_ID, Taxonomic_group, Disturbance_Specific), "sum"))
 
-names(df_ID2)[1] <- "Paper_ID"
-names(df_ID2)[2] <- "Response_Type"
-names(df_ID2)[3] <- "Taxonomic_Group"
-names(df_ID2)[4] <- "Disturbance_Type"
-names(df_ID2)[5] <- "NPapers"
+names(df_ID3)[1] <- "Paper_ID"
+names(df_ID3)[2] <- "Taxonomic_Group"
+names(df_ID3)[3] <- "Disturbance_Type"
+names(df_ID3)[4] <- "NPapers"
 
 ##reset sum column
 
-df_ID2$sum <- 1
+df_ID3$sum <- 1
 
 ##aggregate by Response Type, Taxonomic Group and Disturbance Type
 
-df_RTTGDT <- with(df_ID2, aggregate(sum, by = list(Response_Type, Taxonomic_Group, Disturbance_Type), "sum"))
+df_TGDS <- with(df_ID3, aggregate(sum, by = list(Taxonomic_Group, Disturbance_Type), "sum"))
 
-names(df_RTTGDT)[1] <- "Response_Type"
-names(df_RTTGDT)[2] <- "Taxonomic_Group"
-names(df_RTTGDT)[3] <- "Disturbance_Type"
-names(df_RTTGDT)[4] <- "NPapers"
+names(df_TGDS)[1] <- "Taxonomic_Group"
+names(df_TGDS)[2] <- "Disturbance_Type"
+names(df_TGDS)[3] <- "NPapers"
+
+##create heatmap from df_ID3
+
+c <- ggplot() + 
+      geom_bin2d(data = df_ID3, aes(x = Disturbance_Type, y = Taxonomic_Group)) +
+      ##add counts to cells
+      stat_bin2d(data = df_ID3, geom = "text", aes(x = Disturbance_Type, y = Taxonomic_Group, 
+                                                  label = ..count..)) +
+      ##colour cells using scale_colour_gradient2
+      scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
+      labs(x = "Response Type", y = "Taxonomic Group", col = "No. Papers") +
+      ##make co-ordinates equal - perfect square cells
+      coord_equal() +
+      theme(axis.text=element_text(colour="black"),
+            ##Hide panel borders and remove grid lines
+            panel.border = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            panel.background = element_rect(fill = "#CCCCCC"),
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = c, filename = "dslr_recreation_disturbance_specific_by_taxonomic_group.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
+)
+
+
+#------------------#
+##End of script ####
+#------------------#
