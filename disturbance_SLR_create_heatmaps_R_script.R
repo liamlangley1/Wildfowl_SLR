@@ -73,7 +73,7 @@ a <- ggplot() +
                                                      label = ..count..)) +
       ##colour cells using scale_colour_gradient2
       scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
-      labs(x = "Response Type", y = "Taxonomic Group", col = "No. Papers") +
+      labs(x = "Response Type", y = "Taxonomic Group", fill = "No. Papers") +
       ##make co-ordinates equal - perfect square cells
       coord_equal() +
       theme(axis.text=element_text(colour="black"),
@@ -160,7 +160,7 @@ b <- ggplot() +
       facet_wrap(~ Disturbance_Type) +
       ##colour cells using scale_colour_gradient2
       scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
-      labs(x = "Response Type", y = "Taxonomic Group", col = "No. Papers") +
+      labs(x = "Response Type", y = "Taxonomic Group", fill = "No. Papers") +
       ##make co-ordinates equal - perfect square cells
       coord_equal() +
       theme(axis.text=element_text(colour="black"),
@@ -207,11 +207,11 @@ names(df_ID3)[2] <- "Taxonomic_Group"
 names(df_ID3)[3] <- "Disturbance_Type"
 names(df_ID3)[4] <- "NPapers"
 
-##reset sum column
+## reset sum column
 
 df_ID3$sum <- 1
 
-##aggregate by Response Type, Taxonomic Group and Disturbance Type
+## aggregate by Response Type, Taxonomic Group and Disturbance Type
 
 df_TGDS <- with(df_ID3, aggregate(sum, by = list(Taxonomic_Group, Disturbance_Type), "sum"))
 
@@ -219,7 +219,7 @@ names(df_TGDS)[1] <- "Taxonomic_Group"
 names(df_TGDS)[2] <- "Disturbance_Type"
 names(df_TGDS)[3] <- "NPapers"
 
-##create heatmap from df_ID3
+## create heatmap from df_ID3
 
 c <- ggplot() + 
       geom_bin2d(data = df_ID3, aes(x = Disturbance_Type, y = Taxonomic_Group)) +
@@ -228,7 +228,7 @@ c <- ggplot() +
                                                   label = ..count..)) +
       ##colour cells using scale_colour_gradient2
       scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
-      labs(x = "Response Type", y = "Taxonomic Group", col = "No. Papers") +
+      labs(x = "Disturbance_Type", y = "Taxonomic Group", fill = "No. Papers") +
       ##make co-ordinates equal - perfect square cells
       coord_equal() +
       theme(axis.text=element_text(colour="black"),
@@ -248,6 +248,74 @@ ggsave(plot = c, filename = "dslr_recreation_disturbance_specific_by_taxonomic_g
        device = device,
        path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
 )
+
+
+#-------------------------------------------------------------------#
+##All papers - specific behavioural responses by taxonomic group ####
+#-------------------------------------------------------------------#
+
+## subset data for recreational disturbance papers only
+
+df_beh <- df_clean %>%
+  filter(Response_Type == "Behavioural")
+
+## create sum column to aggregate by
+
+df_beh$sum <- 1
+
+## aggregate by Response Type and Taxonomic Group
+## functions as a check for the heatmap
+## first need to aggregate by paper ID - multiple behavioural responses in one paper
+
+df_ID4 <- with(df_beh, aggregate(sum, by = list(Paper_ID, Taxonomic_group, Response_Specific), "sum"))
+
+names(df_ID4)[1] <- "Paper_ID"
+names(df_ID4)[2] <- "Taxonomic_Group"
+names(df_ID4)[3] <- "Response_Type"
+names(df_ID4)[4] <- "NPapers"
+
+## reset sum column
+
+df_ID4$sum <- 1
+
+## aggregate by Response Type, Taxonomic Group and Disturbance Type
+
+df_TGRS <- with(df_ID4, aggregate(sum, by = list(Taxonomic_Group, Response_Type), "sum"))
+
+names(df_TGRS)[1] <- "Taxonomic_Group"
+names(df_TGRS)[2] <- "Response_Type"
+names(df_TGRS)[3] <- "NPapers"
+
+##create heatmap from df_ID4
+
+d <- ggplot() + 
+      geom_bin2d(data = df_ID4, aes(x = Response_Type, y = Taxonomic_Group)) +
+      ##add counts to cells
+      stat_bin2d(data = df_ID4, geom = "text", aes(x = Response_Type, y = Taxonomic_Group, 
+                                                   label = ..count..)) +
+      ##colour cells using scale_colour_gradient2
+      scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
+      labs(x = "Response Type", y = "Taxonomic Group", fill = "No. Papers") +
+      ##make co-ordinates equal - perfect square cells
+      coord_equal() +
+      theme(axis.text=element_text(colour="black"),
+            ##Hide panel borders and remove grid lines
+            panel.border = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            panel.background = element_rect(fill = "#CCCCCC"),
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = d, filename = "dslr_behavioural_response_by_taxonomic_group.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
+)
+
 
 
 #------------------#
