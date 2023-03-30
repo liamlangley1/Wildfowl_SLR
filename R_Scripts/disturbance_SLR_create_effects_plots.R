@@ -197,6 +197,19 @@ ggsave(plot = b, filename = "dslr_reduced_effects_plot_by_specific_disturbance_g
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
 
+## save out as figure 8
+## change outpath
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save figure
+
+ggsave(plot = b, filename = "figure_8.tiff",
+       device = device,
+       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+)
+
+
 
 #------------------------------------------------------------#
 ##Repeat - specific response and general disturbance type ####
@@ -307,6 +320,10 @@ c <- ggplot(df_expanded2, aes(x = Response_Type, y = NPapers, fill = Effect_YN))
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
+##change outpath
+
+out_path <- here("Outputs", "Plots")
+
 ## save plot
 
 ggsave(plot = c, filename = "dslr_effects_plot_by_specific_response_general_disturbance_and_taxonomic_group.tiff",
@@ -342,6 +359,18 @@ d <- ggplot(df_reduced2, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) 
 ## save plot
 
 ggsave(plot = d, filename = "dslr_reduced_effects_plot_by_specific_response_general_disturbance_and_taxonomic_group.tiff",
+       device = device,
+       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+)
+
+## save out as figure 9
+## change out path
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save figure
+
+ggsave(plot = d, filename = "figure_9.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
@@ -454,6 +483,10 @@ e <- ggplot(df_expanded3, aes(x = Response_Type, y = NPapers, fill = Effect_YN))
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
+## change outpath
+
+out_path <- here("Outputs", "Plots")
+
 ## save plot
 
 ggsave(plot = e, filename = "dslr_wildfowling_effects_plot_by_specific_response_and_taxonomic_group.tiff",
@@ -461,7 +494,17 @@ ggsave(plot = e, filename = "dslr_wildfowling_effects_plot_by_specific_response_
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
 
+## save out as figure 4
+## change out path
 
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save figure
+
+ggsave(plot = e, filename = "figure_4.tiff",
+       device = device,
+       path = out_path ,units = units, width = 175, height = 150, dpi = dpi,   
+)
 
 
 #------------------#
