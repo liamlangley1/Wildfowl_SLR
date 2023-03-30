@@ -255,7 +255,7 @@ c <- ggplot() +
                                                   label = ..count..)) +
       ##colour cells using scale_colour_gradient2
       scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
-      labs(x = "Disturbance_Type", y = "Taxonomic Group", fill = "No. Papers") +
+      labs(x = "Disturbance Type", y = "Taxonomic Group", fill = "No. Papers") +
       ##make co-ordinates equal - perfect square cells
       coord_equal() +
       theme(axis.text=element_text(colour="black"),

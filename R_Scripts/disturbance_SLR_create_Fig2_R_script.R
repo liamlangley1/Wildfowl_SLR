@@ -13,6 +13,7 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(patchwork)
 library(ggpubr)
+library(cowplot)
 
 #----------------------------#
 ## Read in and clean data ####
@@ -156,19 +157,15 @@ acc_plot <- ggplot() +
                        size = 1.2, col = "#FF9933") +
              labs(x = "Year", y = "Cumulative Papers") +
              ggtitle("a.") +
-             theme(axis.text=element_text(colour="black"),
-                   ##Hide panel borders and remove grid lines
-                   legend.position = "none",
-                   panel.border = element_blank(),
-                   panel.grid.major = element_blank(),
-                   panel.grid.minor = element_blank(),
-                   panel.background = element_blank(),
-                   axis.title.x = element_text(size = 15),
-                   axis.text.x = element_text(hjust=0.7),
-                   axis.title.y = element_text(angle=90, vjust = 0.4, size = 15),
-                   axis.text.y = element_text(hjust=0.7,vjust=0.3),
-                   strip.text.x = element_text(size = 15),
-                   strip.text.y = element_text(size = 15))
+             theme_bw() +
+             theme(panel.grid.major = element_blank(), 
+                   ##panel.grid.minor = element_blank(), 
+                   ##panel.border = element_blank(), 
+                   axis.title.x = element_text(size = 12),
+                   axis.text.x = element_text(hjust=1, angle = 45),
+                   axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+                   axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
 
 
 ## save plot
@@ -184,7 +181,7 @@ ggsave(plot = acc_plot, filename = "disturbance_SLR_paper_acc_plot.tiff",
 #----------------------------------------------#
 
 ## aggregate data
-## retain year and paper ID columns
+## retain continent and paper ID columns
 
 df_map <- with(df_clean, aggregate(sum, by = list(Paper_ID, Continent), "sum"))
 
@@ -230,7 +227,7 @@ paper_map <- ggplot(data = map_totals) +
               geom_sf(aes(fill = NPapers)) +
               scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
               labs(fill = "No. Papers") +
-              ggtitle("b.") +
+              ggtitle("c.") +
               theme(axis.text=element_text(colour="black"),
                     ##Hide panel borders and remove grid lines
                     panel.border = element_blank(),
@@ -251,14 +248,73 @@ ggsave(plot = paper_map, filename = "disturbance_SLR_paper_map.tiff",
 )
 
 
+#------------------------------------------------------------#
+##Create bar plot of number of papers per taxonomic group ####
+#------------------------------------------------------------#
+
+## aggregate data
+## retain taxonomic group and paper ID columns
+
+df_TG <- with(df_clean, aggregate(sum, by = list(Paper_ID, Taxonomic_group), "sum"))
+
+names(df_TG)[1] <- "Paper_ID"
+names(df_TG)[2] <- "Taxonomic_Group"
+names(df_TG)[3] <- "sum"
+
+## aggregate to calculate cumulative number of papers per year
+## first reset sum column
+
+df_TG$sum <- 1
+
+## aggregate by continent
+
+df_TG2 <- with(df_TG, aggregate(sum, by = list(Taxonomic_Group), "sum"))
+
+names(df_TG2)[1] <- "Taxonomic_Group"
+names(df_TG2)[2] <- "NPapers"
+
+##relevel taxonomic group so multiple last
+
+df_TG2$Taxonomic_Group <- factor(df_TG2$Taxonomic_Group, levels = c("Crane", "Duck", "Geese", "Rails",
+                                                                    "Swan", "Waders", "Multiple"))
+
+##create barplot
+
+tg_plot <- ggplot(df_TG2, aes(x = Taxonomic_Group, y = NPapers)) +
+            geom_bar(stat = "identity", fill = "#FFCC00") +
+            labs(x = "Response Type", y = "Number of Papers", fill = "Effect") +
+            ggtitle("b.") +
+            theme_bw() +
+            theme(panel.grid.major = element_blank(), 
+                  ##panel.grid.minor = element_blank(), 
+                  ##panel.border = element_blank(), 
+                  axis.title.x = element_text(size = 12),
+                  axis.text.x = element_text(hjust=1, angle = 45),
+                  axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+                  axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = tg_plot, filename = "disturbance_SLR_tg_barplot.tiff",
+       device = device,
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
+)
+
+
 #-----------------------------#
 ##Make facet plot - Fig. 2 ####
 #-----------------------------#
 
-## make facet plot of paper accumulation and map plots
-## use ggarrange
+## make facet plot of paper accumulation, TG and map plots
+## use cowplot
+## first make plot for top row
 
-fig2 <- ggarrange(acc_plot, paper_map, ncol = 1, nrow = 2,
+top <- ggdraw() +
+        draw_plot(acc_plot + tg_plot)
+
+## now combine with map
+
+fig2 <- ggarrange(top, paper_map, ncol = 1, nrow = 2,
                   widths = c(1, 1))
 
 ## change filepath to read out figure
