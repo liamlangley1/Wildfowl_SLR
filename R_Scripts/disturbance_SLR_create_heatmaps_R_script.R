@@ -7,7 +7,7 @@
 library(tidyverse)
 library(ggplot2)
 library(here)
-library(ggpubr)
+
 
 #------------------#
 ## Read in data ####
