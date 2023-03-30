@@ -7,7 +7,7 @@
 library(tidyverse)
 library(ggplot2)
 library(here)
-
+library(ggpubr)
 
 #------------------#
 ## Read in data ####
@@ -112,6 +112,18 @@ ggsave(plot = a, filename = "dslr_wildfowling_taxonomic_group_by_response_type_h
        path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
 )
 
+## read out as figure 3
+## change out path
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save plot
+
+ggsave(plot = a, filename = "figure_3.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
 
 #------------------------------------------------------------------#
 ##All papers - response by taxonomic group and disturbance type ####
@@ -174,12 +186,27 @@ b <- ggplot() +
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
+## define filepath to read out plots 
+
+out_path <- here("Outputs", "Heatmaps")
 
 ## save plot
 
 ggsave(plot = b, filename = "dslr_wildfowling_taxonomic_group_by_response_and_disturbance_type_heatmap.tiff",
        device = device,
        path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
+)
+
+## save out as figure 5
+## change out path
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save plot
+
+ggsave(plot = b, filename = "figure_5.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 100, dpi = dpi,   
 )
 
 
@@ -241,10 +268,26 @@ c <- ggplot() +
             axis.text.x = element_text(hjust=1, angle = 45),
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+      
+##set outpath
+      
+out_path <- here("Outputs", "Heatmaps")
 
 ## save plot
 
 ggsave(plot = c, filename = "dslr_recreation_disturbance_specific_by_taxonomic_group.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
+)
+
+## save out as fig 6
+## change outpath
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save figure
+
+ggsave(plot = c, filename = "figure_6.tiff",
        device = device,
        path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
 )
@@ -309,6 +352,10 @@ d <- ggplot() +
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
+##set outpath
+
+out_path <- here("Outputs", "Plots")
+
 ## save plot
 
 ggsave(plot = d, filename = "dslr_behavioural_response_by_taxonomic_group.tiff",
@@ -316,6 +363,17 @@ ggsave(plot = d, filename = "dslr_behavioural_response_by_taxonomic_group.tiff",
        path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
 )
 
+## save out as fig 7
+## change outpath
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save figure
+
+ggsave(plot = d, filename = "figure_7.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 125, dpi = dpi,   
+)
 
 
 #------------------#

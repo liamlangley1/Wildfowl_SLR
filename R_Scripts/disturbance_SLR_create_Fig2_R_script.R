@@ -271,3 +271,8 @@ ggsave(plot = fig2, filename = "figure_2.tiff",
        device = device,
        path = out_path ,units = units, width = 150, height = 175, dpi = dpi,   
 )
+
+
+#------------------#
+##End of script ####
+#------------------#
