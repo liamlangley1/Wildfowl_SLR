@@ -347,6 +347,123 @@ ggsave(plot = d, filename = "dslr_reduced_effects_plot_by_specific_response_gene
 )
 
 
+#----------------------------------------------#
+##Create a plot for wildfowling papers only ####
+#----------------------------------------------#
+
+## create a barplot of the n papers which detected an effect (Yes/No) in any species or specific disturbance type
+## number of papers which didn't detect an effect in any species or specific disturbance type tested
+## and total number of papers
+## by specific disturbance response
+## facet by taxonomic group - ducks, geese, swans, waders, crane, multiple
+## need to create aggregated data frame
+## first subset for wildfowling papers only
+
+df_wf <- df_clean%>%
+  filter(Disturbance_Type == "Wildfowling")
+
+##aggregate data
+
+df_agg3 <- with(df_wf, aggregate(sum, by = list(Paper_ID, Response_Specific, Taxonomic_group, Effect_YN), "sum"))
+
+names(df_agg3)[1] <- "Paper_ID"
+names(df_agg3)[2] <- "Response_Type"
+names(df_agg3)[3] <- "Taxonomic_Group"
+names(df_agg3)[4] <- "Effect_YN"
+names(df_agg3)[5] <- "NRows"
+
+## reset sum column
+
+df_agg3$sum <- 1
+
+## aggregate across papers
+
+df_effect3 <- with(df_agg3, aggregate(sum, by = list(Response_Type, Taxonomic_Group, Effect_YN), "sum"))
+
+names(df_effect3)[1] <- "Response_Type"
+names(df_effect3)[2] <- "Taxonomic_Group"
+names(df_effect3)[3] <- "Effect_YN"
+names(df_effect3)[4] <- "NPapers"
+
+## need to aggregate for the total number of papers testing each combination of response, disturbance and TG
+
+df_total3 <- with(df_agg3, aggregate(sum, by = list(Response_Type, Taxonomic_Group), "sum"))
+
+names(df_total3)[1] <- "Response_Type"
+names(df_total3)[2] <- "Taxonomic_Group"
+names(df_total3)[3] <- "NPapers"
+
+## create an Effect_YN column for df_total filled with "Total"
+
+df_total3$Effect_YN <- "Total"
+
+## merge data frames together for plotting
+
+df_plot3 <- rbind(df_effect3, df_total3)
+
+## add 0 values for combinations not represented in the data
+
+df_expanded3 <- left_join(df_plot3%>%
+                            expand(Taxonomic_Group, Response_Type, Effect_YN), df_plot3)
+
+##overwrite spelling error for Community composition
+
+df_expanded3$Response_Type <- ifelse(df_expanded3$Response_Type == "Comminity composition", 
+                                     "Community composition", paste0(df_expanded3$Response_Type))
+
+## reorder response type variable to group in order of broader disturbance categories
+
+levels(as.factor(df_expanded3$Response_Type))
+
+df_expanded3$Response_Type <- factor(df_expanded3$Response_Type, levels = c("TAB", "Vigilance", "Feeding", 
+                                                                            "Movement", "Habitat selection", "Body condition", "Heart rate", "TEB",
+                                                                            "Local abundance", "Community composition", "Productivity (carry-over)"))
+
+
+##convert Effect_YN to a factor for plotting and relevel
+
+df_expanded3$Effect_YN <- factor(df_expanded3$Effect_YN, levels = c("Total", "Yes", "No"))
+
+##relevel taxonomic group so multiple last
+
+df_expanded3$Taxonomic_Group <- factor(df_expanded3$Taxonomic_Group, levels = c("Crane", "Duck", "Geese", "Rails",
+                                                                                "Swan", "Waders", "Multiple"))
+
+
+#-------------------------------------------#
+##Create plot - facet by Taxonomic Group ####
+#-------------------------------------------#
+
+## create a barplot of the n papers which detected an effect (Yes/No) in any species or specific disturbance source 
+## number of papers which didn't detect an effect in any species or specific disturbance sources tested
+## and total number of papers for that combination
+## by specific disturbance type
+## facet by taxonomic group - ducks, geese, swans, waders, crane, multiple
+
+e <- ggplot(df_expanded3, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
+      geom_bar(stat = "identity", position = position_dodge()) +
+      facet_wrap(~ Taxonomic_Group) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "Response Type", y = "Number of Papers", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = e, filename = "dslr_wildfowling_effects_plot_by_specific_response_and_taxonomic_group.tiff",
+       device = device,
+       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+)
+
+
+
+
 #------------------#
 ##End of script ####
 #------------------#

@@ -8,10 +8,14 @@
 library(tidyverse)
 library(ggplot2)
 library(here)
-
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(patchwork)
+library(ggpubr)
 
 #----------------------------#
-## Read in paper metadata ####
+## Read in and clean data ####
 #----------------------------#
 
 ## set filepath for data read in
@@ -23,15 +27,15 @@ filepath <- here("Data", "Disturbance_final_data_cleaned.csv")
 
 df_papers <- read_csv(filepath)
 
-
-#--------------------------------------------#
-## Aggregate data by journal for plotting ####
-#--------------------------------------------#
-
 ##first remove papers excluded by full text screening
 
 df_clean <- df_papers%>%
   filter(Paper_Retained == "Yes")
+
+
+#--------------------------------------------#
+## Aggregate data by journal for plotting ####
+#--------------------------------------------#
 
 ## aggregate data so there is a single row for each paper
 ## create sum column to aggregate by
@@ -78,7 +82,6 @@ journal_plot  <- ggplot(df_journal2, aes(x = reorder(Journal, NPapers), y = NPap
                   coord_flip() +
                   geom_bar(stat = "identity", fill = "#FF9933", col = "black") +
                   labs(x = " Journal", y = "Number of Papers") +
-                  ggtitle("b.") +
                   theme_bw() +
                   theme(panel.grid.major = element_blank(), 
                         axis.line = element_line(colour = "black", size=0.7),
@@ -102,7 +105,7 @@ dpi <- 300
 
 ## define filepath to read out plots 
 
-out_path <- here("Outputs")
+out_path <- here("Outputs", "Plots")
 
 ## save plot
 
@@ -168,23 +171,6 @@ acc_plot <- ggplot() +
                    strip.text.y = element_text(size = 15))
 
 
-## Define parameters for reading out plot
-## Define device to read plots out as e.g. tiff/jpeg
-
-device <- "tiff"
-
-## define units for plot size - usually mm
-
-units <- "mm"
-
-## define plot resolution in dpi - 300 usually minimum
-
-dpi <- 300
-
-## define filepath to read out plots 
-
-out_path <- here("Outputs")
-
 ## save plot
 
 ggsave(plot = acc_plot, filename = "disturbance_SLR_paper_acc_plot.tiff",
@@ -215,13 +201,73 @@ df_map$sum <- 1
 
 df_map2 <- with(df_map, aggregate(sum, by = list(Continent), "sum"))
 
-names(df_map2)[1] <- "Year"
+names(df_map2)[1] <- "continent"
 names(df_map2)[2] <- "NPapers"
 
+## rename Australasia as Oceania to match world data
+
+df_map2$continent <- ifelse(df_map2$continent == "Australasia", 
+                            "Oceania", paste(df_map2$continent))
+
+## read in map data from Rnaturalearth
+## medium resolution
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+## bind world data to paper counts for plotting
+
+map_totals <- world %>%
+  full_join(df_map2)
 
 #--------------------------------------------#
 ## Create heat map of papers by continent ####
 #--------------------------------------------#
 
+##heat map of number of papers by continent
+##move legend to bottom
+
+paper_map <- ggplot(data = map_totals) +
+              geom_sf(aes(fill = NPapers)) +
+              scale_fill_gradient(low = "#FFFF00", high = "#FF3300") +
+              labs(fill = "No. Papers") +
+              ggtitle("b.") +
+              theme(axis.text=element_text(colour="black"),
+                    ##Hide panel borders and remove grid lines
+                    panel.border = element_blank(),
+                    panel.grid.major = element_blank(),
+                    panel.grid.minor = element_blank(),
+                    panel.background = element_rect(fill = "#CCFFFF"),
+                    legend.position = "bottom",
+                    axis.title.x = element_text(size = 12),
+                    axis.text.x = element_text(hjust=1, angle = 45),
+                    axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+                    axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = paper_map, filename = "disturbance_SLR_paper_map.tiff",
+       device = device,
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
+)
 
 
+#-----------------------------#
+##Make facet plot - Fig. 2 ####
+#-----------------------------#
+
+## make facet plot of paper accumulation and map plots
+## use ggarrange
+
+fig2 <- ggarrange(acc_plot, paper_map, ncol = 1, nrow = 2,
+                  widths = c(1, 1))
+
+## change filepath to read out figure
+
+out_path <- here("Outputs", "Manuscript Figures")
+
+## save plot
+
+ggsave(plot = fig2, filename = "figure_2.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 175, dpi = dpi,   
+)
