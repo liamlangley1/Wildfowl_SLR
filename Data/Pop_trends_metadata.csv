@@ -1,0 +1,53 @@
+BTO_Code,Species_Name,Common_Name,Taxonomic_Group,BASC_Quarry_Species
+AN,Grus grus,Crane,Crane,No
+SV,Spatula cylpatea,Shoveler,Dabbling Ducks,Yes
+GA,Mareca strepera,Gadwall,Dabbling Ducks,Yes
+WN,Mareca penelope,Wigeon,Dabbling Ducks,Yes
+MA,Anas platyrhynchos,Mallard,Dabbling Ducks,Yes
+PT,Anas acuta,Pintail,Dabbling Ducks,Yes
+T.,Anas crecca,Teal,Dabbling Ducks,Yes
+SU,Tadorna tadorna,Shelduck,Dabbling Ducks,No
+PO,Aythya ferina,Pochard,Diving Ducks,Yes
+TU,Aythya fuligula,Tufted Duck,Diving Ducks,Yes
+GN,Bucephela clanga,Goldeneye,Diving Ducks,Yes
+SP,Aythya marila,Scaup,Diving Ducks,No
+EE,Somateria mollisima,Eider (except Shetland),Diving Ducks,No
+SY,Mergellus albellus,Smew,Diving Ducks,No
+GD,Mergus merganser,Goosander,Diving Ducks,No
+RM,Mergus serrator,Red-breasted Merganser,Diving Ducks,No
+CG,Branta candensis,Canada Goose,Geese,Yes
+GJ,Anser anser,Greylag Goose,Geese,Yes
+JA,Anser anser,Greylag Goose (British/Irish),Geese,Yes
+JE,Anser anser,Greylag Goose (re-established),Geese,Yes
+PG,Anser brachyrhynchus,Pink-footed Goose,Geese,Yes
+WG,Anser albifrons,White-fronted Goose,Geese,Yes
+EW,Anser albifrons albifrons,White-fronted Goose (European - albifrons),Geese,Yes
+BG,Branta bernicla,Brent Goose,Geese,No
+DB,Branta bernicla bernicla ,Brent Goose (Dark-bellied - bernicla),Geese,No
+PB,Branta bernicla hrota,Brent Goose (Light-bellied - hrota),Geese,No
+QS,Brant bernicla hrota,Brent Goose (Svalbard Light-bellied),Geese,No
+QN,Brant bernicla hrota,Brent Goose (Light-bellied of Nearctic origin),Geese,No
+BY,Branta leucopsis,Barnacle Goose,Geese,No
+YE,Branta leucopsis,Barnacle Goose (naturalised),Geese,No
+BE,Anser fabalis/serrirostirs,Taiga/Tundra Bean Goose,Geese,No
+XF,Anser fabalis,Taiga Bean Goose,Geese,No
+MH,Gallinula chloropus,Moorhen,Rails,Yes
+CO,Fulica atra,Coot,Rails,Yes
+MS,Cygnus olor,Mute Swan,Swans,No
+BS,Cygnus columbianus bewickii,Bewick's Swan,Swans,No
+WS,Cygnus cygnus,Whooper Swan,Swans,No
+SN,Gallinago gallinago,Snipe,Waders,Yes
+OC,Haematopus ostralegus,Oystercatcher,Waders,No
+AV,Recurvirostra avocetta,Avocet,Waders,No
+L.,Vanellus vanellus,Lapwing,Waders,No
+GP,Pluvialis apricaria,Golden Plover,Waders,No
+GV,Pluvialis squatarola,Grey Plover,Waders,No
+RP,Charadrius hiaticula,Ringed Plover,Waders,No
+CU,Numenius arquata,Curlew,Waders,No
+BA,Limosa lapponica,Bar-tailed Godwit,Waders,No
+BW,Limosa limosa,Black-tailed Godwit,Waders,No
+KN,Calidris canute,Knot,Waders,No
+RU,Calidris pugnax,Ruff,Waders,No
+DN,Calidris alpina,Dunlin,Waders,No
+JS,Lymnocryptes minimus,Jack Snipe,Waders,No
+RK,Tringa totanus,Redshank,Waders,No
