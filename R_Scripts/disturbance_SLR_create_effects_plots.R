@@ -197,14 +197,14 @@ ggsave(plot = b, filename = "dslr_reduced_effects_plot_by_specific_disturbance_g
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
 
-## save out as figure 8
+## save out as figure 9
 ## change outpath
 
 out_path <- here("Outputs", "Manuscript Figures")
 
 ## save figure
 
-ggsave(plot = b, filename = "figure_8.tiff",
+ggsave(plot = b, filename = "figure_9.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
@@ -363,14 +363,14 @@ ggsave(plot = d, filename = "dslr_reduced_effects_plot_by_specific_response_gene
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
 
-## save out as figure 9
+## save out as figure 8
 ## change out path
 
 out_path <- here("Outputs", "Manuscript Figures")
 
 ## save figure
 
-ggsave(plot = d, filename = "figure_9.tiff",
+ggsave(plot = d, filename = "figure_8.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
