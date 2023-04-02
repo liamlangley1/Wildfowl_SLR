@@ -85,14 +85,52 @@ df_metadata <- readr::read_csv(filepath_meta)
 names(df_metadata)
 
 ## Merge metadata with raw trends data using BTO_Code column
-df_metamerged <- df_combined %>%
+df_trends <- df_combined %>%
   left_join(., df_metadata, by = "BTO_Code") 
-head(df_metamerged)
+head(df_trends)
+
+## make new quarry species column
+
+df_trends$Quarry_Species <- ifelse(df_trends$BASC_Quarry_Species == "Yes", "Quarry", "Non-Quarry")
+
+##convert trends and smoothed trends to numeric
+
+df_trends$IndexEn <- as.numeric(as.vector(df_trends$IndexEn))
+
+df_trends$SmoothedIndexEn <- as.numeric(as.vector(df_trends$SmoothedIndexEn))
+
+df_trends$WeBSYear <- as.numeric(as.vector(df_trends$WeBSYear))
+
+##filter out rows with NA values
+
+df_trends_clean <- df_trends %>%
+  filter(IndexEn != "NA")
 
 
 #--------------------------------#
 ##Visualise population trends ####
 #--------------------------------#
 
+## make a test data set of diving ducks
+
+test <- subset(df_trends_clean, df_trends_clean$Taxonomic_Group == "Diving Ducks")
+
 ## plot smoothed long term trends for England for all species
-## 
+## facet grid by major taxonomic group and quarry species
+
+a <- ggplot(test, aes(x = WeBSYear, y = SmoothedIndexEn, col = BTO_Code)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      ##facet_grid(rows = vars(Taxonomic_Group), cols = vars(Quarry_Species)) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
