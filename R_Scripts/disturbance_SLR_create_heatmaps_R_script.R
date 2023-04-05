@@ -103,7 +103,7 @@ dpi <- 300
 
 ## define filepath to read out plots 
 
-out_path <- here("Outputs", "Heatmaps")
+out_path <- here("Outputs", "Disturbance", "Heatmaps")
 
 ## save plot
 
@@ -115,7 +115,7 @@ ggsave(plot = a, filename = "dslr_wildfowling_taxonomic_group_by_response_type_h
 ## read out as figure 3
 ## change out path
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save plot
 
@@ -188,7 +188,7 @@ b <- ggplot() +
 
 ## define filepath to read out plots 
 
-out_path <- here("Outputs", "Heatmaps")
+out_path <- here("Outputs", "Disturbance", "Heatmaps")
 
 ## save plot
 
@@ -200,7 +200,7 @@ ggsave(plot = b, filename = "dslr_wildfowling_taxonomic_group_by_response_and_di
 ## save out as figure 5
 ## change out path
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save plot
 
@@ -271,7 +271,7 @@ c <- ggplot() +
       
 ##set outpath
       
-out_path <- here("Outputs", "Heatmaps")
+out_path <- here("Outputs", "Disturbance", "Heatmaps")
 
 ## save plot
 
@@ -283,7 +283,7 @@ ggsave(plot = c, filename = "dslr_recreation_disturbance_specific_by_taxonomic_g
 ## save out as fig 6
 ## change outpath
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
@@ -354,7 +354,7 @@ d <- ggplot() +
 
 ##set outpath
 
-out_path <- here("Outputs", "Plots")
+out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
@@ -366,7 +366,7 @@ ggsave(plot = d, filename = "dslr_behavioural_response_by_taxonomic_group.tiff",
 ## save out as fig 7
 ## change outpath
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
