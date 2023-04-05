@@ -189,7 +189,7 @@ out_path <- here("Outputs", "Mortality", "Manuscript Figures")
 
 ggsave(plot = b, filename = "figure_3.tiff",
        device = device,
-       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+       path = out_path ,units = units, width = 175, height = 150, dpi = dpi,   
 )
 
 
