@@ -43,7 +43,7 @@ df_wf$sum <- 1
 
 ## aggregate by Response Type and Taxonomic Group
 ## functions as a check for the heatmap
-##first need to aggregate by paper ID - multiple behavioural responses in one paper
+## first need to aggregate by paper ID - multiple behavioural responses in one paper
 
 df_ID <- with(df_wf, aggregate(sum, by = list(Paper_ID, Response_Type, Taxonomic_group), "sum"))
 
