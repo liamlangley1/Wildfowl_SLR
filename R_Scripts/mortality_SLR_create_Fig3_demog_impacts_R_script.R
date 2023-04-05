@@ -16,7 +16,7 @@ library(here)
 
 ## set filepath for data read in
 
-filepath <- here("Data", "Mortality_final_data.csv")
+filepath <- here("Data", "Mortality_final_data_cleaned.csv")
 
 ## read in data
 ## metadata for all disturbance papers post abstract screening
@@ -183,7 +183,14 @@ ggsave(plot = b, filename = "MSLR_reduced_effects_plot_by_demographic_response.t
 ## save out as figure 3
 ## change outpath
 
-outpath <- here("Outputs", "Mortality", "Manuscript Figures")
+out_path <- here("Outputs", "Mortality", "Manuscript Figures")
+
+## save plot
+
+ggsave(plot = b, filename = "figure_3.tiff",
+       device = device,
+       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+)
 
 
 #------------------#
