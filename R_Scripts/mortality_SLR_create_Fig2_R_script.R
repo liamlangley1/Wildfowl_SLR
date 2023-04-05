@@ -21,7 +21,7 @@ library(cowplot)
 
 ## set filepath for data read in
 
-filepath <- here("Data", "Mortality_final_data.csv")
+filepath <- here("Data", "Mortality_final_data_cleaned.csv")
 
 ## read in data
 ## metadata for all disturbance papers post abstract screening
