@@ -106,7 +106,7 @@ dpi <- 300
 
 ## define filepath to read out plots 
 
-out_path <- here("Outputs", "Plots")
+out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
@@ -319,7 +319,7 @@ fig2 <- ggarrange(top, paper_map, ncol = 1, nrow = 2,
 
 ## change filepath to read out figure
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save plot
 
