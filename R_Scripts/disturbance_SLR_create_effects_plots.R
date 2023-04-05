@@ -156,7 +156,7 @@ dpi <- 300
 
 ## define filepath to read out plots 
 
-out_path <- here("Outputs", "Plots")
+out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
@@ -200,13 +200,13 @@ ggsave(plot = b, filename = "dslr_reduced_effects_plot_by_specific_disturbance_g
 ## save out as figure 9
 ## change outpath
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
 ggsave(plot = b, filename = "figure_9.tiff",
        device = device,
-       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+       path = out_path ,units = units, width = 200, height = 225, dpi = dpi,   
 )
 
 
@@ -322,7 +322,7 @@ c <- ggplot(df_expanded2, aes(x = Response_Type, y = NPapers, fill = Effect_YN))
 
 ##change outpath
 
-out_path <- here("Outputs", "Plots")
+out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
@@ -366,13 +366,13 @@ ggsave(plot = d, filename = "dslr_reduced_effects_plot_by_specific_response_gene
 ## save out as figure 8
 ## change out path
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
 ggsave(plot = d, filename = "figure_8.tiff",
        device = device,
-       path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
+       path = out_path ,units = units, width = 200, height = 225, dpi = dpi,   
 )
 
 
@@ -485,7 +485,7 @@ e <- ggplot(df_expanded3, aes(x = Response_Type, y = NPapers, fill = Effect_YN))
 
 ## change outpath
 
-out_path <- here("Outputs", "Plots")
+out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
@@ -497,7 +497,7 @@ ggsave(plot = e, filename = "dslr_wildfowling_effects_plot_by_specific_response_
 ## save out as figure 4
 ## change out path
 
-out_path <- here("Outputs", "Manuscript Figures")
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
