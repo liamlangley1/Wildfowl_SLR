@@ -8,6 +8,9 @@
 library(tidyverse)
 library(ggplot2)
 library(here)
+library(cowplot)
+library(ggpubr)
+library(patchwork)
 
 #--------------------------------------------------------#
 ##Read in and merge trend data from different species ####
@@ -336,6 +339,38 @@ ggsave(plot = g, filename = "crane_trend_en.tiff",
 )
 
 
+## create updated goose plot
+## subset to remove bean geese
 
-#---------------------------
-##
+df_geese_clean <- df_geese %>%
+  filter(Common_Name != "Taiga Bean Goose") %>%
+  filter(Common_Name != "Taiga/Tundra Bean Goose")
+
+## create updated plot
+
+h <- ggplot(df_geese_clean, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = h, filename = "goose_trends_no_beans_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+#------------------#
+## End of script####
+#------------------#
