@@ -101,30 +101,55 @@ df_trends$SmoothedIndexEn <- as.numeric(as.vector(df_trends$SmoothedIndexEn))
 
 df_trends$WeBSYear <- as.numeric(as.vector(df_trends$WeBSYear))
 
-##filter out rows with NA values
+## filter out rows with NA values
+## filter out years before 1995 - last 25 years
+## remove Goosander - gets culled so not appropriate non-target comparison
 
 df_trends_clean <- df_trends %>%
-  filter(IndexEn != "NA")
+  filter(IndexEn != "NA") %>%
+  filter(WeBSYear >= 1995) %>%
+  filter(BTO_Code != "GD")
 
 
 #--------------------------------#
 ##Visualise population trends ####
 #--------------------------------#
 
-## make a test data set of diving ducks
+## make data frames for each taxonomic group
 
-test <- subset(df_trends_clean, df_trends_clean$Taxonomic_Group == "Diving Ducks")
+df_dab <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Dabbling Ducks")
+
+df_dive <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Diving Ducks")
+
+df_geese <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Geese")
+
+df_swans <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Swans")
+
+df_rails <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Rails")
+
+df_waders <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Waders")
+
+df_crane <- df_trends_clean %>%
+  filter(df_trends_clean$Taxonomic_Group == "Crane")
+
 
 ## plot smoothed long term trends for England for all species
-## facet grid by major taxonomic group and quarry species
+## separately for each taxonomic group
+## facet by BASC quarry vs. non-quarry
+## make plot for dabbling ducks
 
-a <- ggplot(test, aes(x = WeBSYear, y = SmoothedIndexEn, col = BTO_Code)) +
+a <- ggplot(df_dab, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
       facet_wrap(~ Quarry_Species) +
-      ##facet_grid(rows = vars(Taxonomic_Group), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
-      labs(x = "WeBS Year", y = "Smoothed Index", fill = "Effect") +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
       theme_bw() +
       theme(panel.grid.major = element_blank(), 
             ##panel.grid.minor = element_blank(), 
@@ -134,3 +159,183 @@ a <- ggplot(test, aes(x = WeBSYear, y = SmoothedIndexEn, col = BTO_Code)) +
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
+
+
+## Define parameters for reading out plot
+## Define device to read plots out as e.g. tiff/jpeg
+
+device <- "tiff"
+
+## define units for plot size - usually mm
+
+units <- "mm"
+
+## define plot resolution in dpi - 300 usually minimum
+
+dpi <- 300
+
+## define filepath to read out plots 
+
+out_path <- here("Outputs", "Pop_trends", "Plots")
+
+## save plot
+
+ggsave(plot = a, filename = "dabbling_duck_trends_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+##make plot for diving ducks
+
+b <- ggplot(df_dive, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = b, filename = "diving_duck_trends_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+##make plot for geese
+
+c <- ggplot(df_geese, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = c, filename = "goose_trends_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+##make plot for swans
+
+d <- ggplot(df_swans, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = d, filename = "swan_trends_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+##make plot for rails
+
+e <- ggplot(df_rails, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = e, filename = "rail_trends_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+##make plot for waders
+
+f <- ggplot(df_waders, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = f, filename = "wader_trends_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+## plot trend for crane
+
+g <- ggplot(df_crane, aes(x = WeBSYear, y = SmoothedIndexEn, col = Common_Name)) +
+      geom_point(size = 0.5) +
+      geom_line() +
+      facet_wrap(~ Quarry_Species) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "WeBS Year", y = "Smoothed Index", col = "Species") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save plot
+
+ggsave(plot = g, filename = "crane_trend_en.tiff",
+       device = device,
+       path = out_path ,units = units, width = 150, height = 150, dpi = dpi,   
+)
+
+
+
+#---------------------------
+##
