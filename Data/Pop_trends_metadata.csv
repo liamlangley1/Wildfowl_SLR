@@ -36,18 +36,18 @@ CO,Fulica atra,Coot,Rails,Yes
 MS,Cygnus olor,Mute Swan,Swans,No
 BS,Cygnus columbianus bewickii,Bewick's Swan,Swans,No
 WS,Cygnus cygnus,Whooper Swan,Swans,No
-SN,Gallinago gallinago,Snipe,Waders,Yes
-OC,Haematopus ostralegus,Oystercatcher,Waders,No
-AV,Recurvirostra avocetta,Avocet,Waders,No
-L.,Vanellus vanellus,Lapwing,Waders,No
-GP,Pluvialis apricaria,Golden Plover,Waders,No
-GV,Pluvialis squatarola,Grey Plover,Waders,No
-RP,Charadrius hiaticula,Ringed Plover,Waders,No
-CU,Numenius arquata,Curlew,Waders,No
-BA,Limosa lapponica,Bar-tailed Godwit,Waders,No
-BW,Limosa limosa,Black-tailed Godwit,Waders,No
-KN,Calidris canute,Knot,Waders,No
-RU,Calidris pugnax,Ruff,Waders,No
-DN,Calidris alpina,Dunlin,Waders,No
-JS,Lymnocryptes minimus,Jack Snipe,Waders,No
-RK,Tringa totanus,Redshank,Waders,No
+SN,Gallinago gallinago,Snipe,Small Waders,Yes
+OC,Haematopus ostralegus,Oystercatcher,Large Waders,No
+AV,Recurvirostra avocetta,Avocet,Large Waders,No
+L.,Vanellus vanellus,Lapwing,Large Waders,No
+GP,Pluvialis apricaria,Golden Plover,Large Waders,No
+GV,Pluvialis squatarola,Grey Plover,Large Waders,No
+RP,Charadrius hiaticula,Ringed Plover,Small Waders,No
+CU,Numenius arquata,Curlew,Large Waders,No
+BA,Limosa lapponica,Bar-tailed Godwit,Large Waders,No
+BW,Limosa limosa,Black-tailed Godwit,Large Waders,No
+KN,Calidris canute,Knot,Small Waders,No
+RU,Calidris pugnax,Ruff,Small Waders,No
+DN,Calidris alpina,Dunlin,Small Waders,No
+JS,Lymnocryptes minimus,Jack Snipe,Small Waders,No
+RK,Tringa totanus,Redshank,Small Waders,No
