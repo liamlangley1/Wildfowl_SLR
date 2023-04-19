@@ -473,6 +473,11 @@ c <- ggplot(df_rec, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
 
 
 ## save out as figure 8
+## change outpath
+
+out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
+
+## save plot
 
 ggsave(plot = c, filename = "figure_8.tiff",
        device = device,
