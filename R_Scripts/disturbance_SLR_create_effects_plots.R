@@ -1,7 +1,8 @@
 ####Script to make plots of disturbance effects
 ####Create barplots of proportion of papers that detected an effect
 ####Liam Langley
-####Date created - 29/03/2022
+####Date created - 29/03/2023
+####Date updated - 19/04/2023
 
 ## load libraries
 
@@ -129,7 +130,6 @@ df_expanded$Taxonomic_Group <- factor(df_expanded$Taxonomic_Group, levels = c("C
 a <- ggplot(df_expanded, aes(x = Disturbance_Type, y = NPapers, fill = Effect_YN)) +
       geom_bar(stat = "identity", position = position_dodge()) +
       facet_grid(rows = vars(Taxonomic_Group), cols = vars(Response_Type)) +
-      ##scale_x_discrete(labels = c("Ag.", "An.", "Ma.")) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "Disturbance Type", y = "Number of Papers", fill = "Effect") +
       theme_bw() +
@@ -178,7 +178,6 @@ df_reduced <- df_expanded %>%
 b <- ggplot(df_reduced, aes(x = Disturbance_Type, y = NPapers, fill = Effect_YN)) +
       geom_bar(stat = "identity", position = position_dodge()) +
       facet_grid(rows = vars(Taxonomic_Group), cols = vars(Response_Type)) +
-      ##scale_x_discrete(labels = c("Ag.", "An.", "Ma.")) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "Disturbance Type", y = "Number of Papers", fill = "Effect") +
       theme_bw() +
@@ -197,19 +196,107 @@ ggsave(plot = b, filename = "dslr_reduced_effects_plot_by_specific_disturbance_g
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
 
-## save out as figure 9
+
+## plots too complicated for manuscript
+## split out and make separate plots for behavioural, physiological and site effects
+## make separate data frame for behavioural effects
+
+df_beh <- df_reduced %>%
+  filter(Response_Type == "Behavioural")
+
+##create plot
+
+c <- ggplot(df_beh, aes(x = Disturbance_Type, y = NPapers, fill = Effect_YN)) +
+      geom_bar(stat = "identity", position = position_dodge()) +
+      facet_wrap(~ Taxonomic_Group, nrow = 2, ncol = 3) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "Disturbance Type", y = "Number of Papers", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+
+## save out as figure 10
 ## change outpath
 
 out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
-ggsave(plot = b, filename = "figure_9.tiff",
+ggsave(plot = c, filename = "figure_10.tiff",
        device = device,
-       path = out_path ,units = units, width = 200, height = 225, dpi = dpi,   
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
+)
+
+## make data frame for site-level effects
+
+df_site <- df_reduced %>%
+  filter(Response_Type == "Site") 
+
+## create plot
+
+d <- ggplot(df_site, aes(x = Disturbance_Type, y = NPapers, fill = Effect_YN)) +
+      geom_bar(stat = "identity", position = position_dodge()) +
+      facet_wrap(~ Taxonomic_Group, nrow = 2, ncol = 3) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "Disturbance Type", y = "Number of Papers", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save figure
+
+ggsave(plot = d, filename = "figure_11.tiff",
+       device = device,
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
 )
 
 
+## make data frame for physiological effects
+## also remove swans and multiple - no studies look at physiological effects in these categories
+
+df_phy <- df_reduced %>%
+  filter(Response_Type == "Physiological") %>%
+  filter(Taxonomic_Group != "Swan") %>%
+  filter(Taxonomic_Group != "Multiple")
+
+
+## create plot
+
+e <- ggplot(df_phy, aes(x = Disturbance_Type, y = NPapers, fill = Effect_YN)) +
+      geom_bar(stat = "identity", position = position_dodge()) +
+      facet_wrap(~ Taxonomic_Group, nrow = 2, ncol = 2) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "Disturbance Type", y = "Number of Papers", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save figure
+
+ggsave(plot = e, filename = "figure_12.tiff",
+       device = device,
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
+)
+
+## remove plot objects
+
+rm(a, b, c, d, e)
 
 #------------------------------------------------------------#
 ##Repeat - specific response and general disturbance type ####
@@ -270,7 +357,7 @@ df_plot2 <- rbind(df_effect2, df_total2)
 df_expanded2 <- left_join(df_plot2%>%
                            expand(Disturbance_Type, Taxonomic_Group, Response_Type, Effect_YN), df_plot2)
 
-##overwrite spelling error for Community composition
+## overwrite spelling error for Community composition
 
 df_expanded2$Response_Type <- ifelse(df_expanded2$Response_Type == "Comminity composition", 
                                      "Community composition", paste0(df_expanded2$Response_Type))
@@ -305,10 +392,9 @@ df_expanded2$Taxonomic_Group <- factor(df_expanded2$Taxonomic_Group, levels = c(
 ## facet by response type
 ## and taxonomic group - ducks, geese, swans, waders, crane, multiple
 
-c <- ggplot(df_expanded2, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
+a <- ggplot(df_expanded2, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
       geom_bar(stat = "identity", position = position_dodge()) +
       facet_grid(rows = vars(Taxonomic_Group), cols = vars(Disturbance_Type)) +
-      ##scale_x_discrete(labels = c("Ag.", "An.", "Ma.")) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "Response Type", y = "Number of Papers", fill = "Effect") +
       theme_bw() +
@@ -326,7 +412,7 @@ out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
-ggsave(plot = c, filename = "dslr_effects_plot_by_specific_response_general_disturbance_and_taxonomic_group.tiff",
+ggsave(plot = a, filename = "dslr_effects_plot_by_specific_response_general_disturbance_and_taxonomic_group.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
@@ -334,17 +420,15 @@ ggsave(plot = c, filename = "dslr_effects_plot_by_specific_response_general_dist
 
 ## very little data for cranes
 ## remove this panel
-## could also remove scaring and rails
 
 df_reduced2 <- df_expanded2 %>%
   filter(Taxonomic_Group != "Crane")
 
 ##remake plot
 
-d <- ggplot(df_reduced2, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
+b <- ggplot(df_reduced2, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
       geom_bar(stat = "identity", position = position_dodge()) +
       facet_grid(rows = vars(Taxonomic_Group), cols = vars(Disturbance_Type)) +
-      ##scale_x_discrete(labels = c("Ag.", "An.", "Ma.")) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "Response Type", y = "Number of Papers", fill = "Effect") +
       theme_bw() +
@@ -358,23 +442,76 @@ d <- ggplot(df_reduced2, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) 
 
 ## save plot
 
-ggsave(plot = d, filename = "dslr_reduced_effects_plot_by_specific_response_general_disturbance_and_taxonomic_group.tiff",
+ggsave(plot = b, filename = "dslr_reduced_effects_plot_by_specific_response_general_disturbance_and_taxonomic_group.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
 
+
+## plots too complicated for manuscript
+## make separate plots for recreational disturbance and non-lethal scaring
+## make dataframe for recreational disturbance
+
+df_rec <- df_reduced2 %>%
+  filter(Disturbance_Type == "Recreational")
+
+## create plot
+
+c <- ggplot(df_rec, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
+      geom_bar(stat = "identity", position = position_dodge()) +
+      facet_wrap(~ Taxonomic_Group, nrow = 2, ncol = 3) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "Response Type", y = "Number of Papers", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+
 ## save out as figure 8
-## change out path
 
-out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
-
-## save figure
-
-ggsave(plot = d, filename = "figure_8.tiff",
+ggsave(plot = c, filename = "figure_8.tiff",
        device = device,
-       path = out_path ,units = units, width = 200, height = 225, dpi = dpi,   
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
 )
 
+## make data frame for lethal scaring
+## also filter for geese - no data in opther panels
+
+df_sca <- df_reduced2 %>%
+  filter(Disturbance_Type == "Scaring")%>%
+  filter(Taxonomic_Group == "Geese")
+
+## create plot
+
+d <- ggplot(df_sca, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
+      geom_bar(stat = "identity", position = position_dodge()) +
+      facet_wrap(~ Taxonomic_Group, nrow = 2, ncol = 3) +
+      scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
+      labs(x = "Response Type", y = "Number of Papers", fill = "Effect") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(), 
+            ##panel.grid.minor = element_blank(), 
+            ##panel.border = element_blank(), 
+            axis.title.x = element_text(size = 12),
+            axis.text.x = element_text(hjust=1, angle = 45),
+            axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
+            axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
+
+## save out as figure 9
+
+ggsave(plot = d, filename = "figure_9.tiff",
+       device = device,
+       path = out_path ,units = units, width = 200, height = 175, dpi = dpi,   
+)
+
+## remove plot objects
+
+rm(a, b, c, d)
 
 #----------------------------------------------#
 ##Create a plot for wildfowling papers only ####
@@ -469,7 +606,7 @@ df_expanded3$Taxonomic_Group <- factor(df_expanded3$Taxonomic_Group, levels = c(
 ## by specific disturbance type
 ## facet by taxonomic group - ducks, geese, swans, waders, crane, multiple
 
-e <- ggplot(df_expanded3, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
+a <- ggplot(df_expanded3, aes(x = Response_Type, y = NPapers, fill = Effect_YN)) +
       geom_bar(stat = "identity", position = position_dodge()) +
       facet_wrap(~ Taxonomic_Group) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
@@ -489,7 +626,7 @@ out_path <- here("Outputs", "Disturbance", "Plots")
 
 ## save plot
 
-ggsave(plot = e, filename = "dslr_wildfowling_effects_plot_by_specific_response_and_taxonomic_group.tiff",
+ggsave(plot = a, filename = "dslr_wildfowling_effects_plot_by_specific_response_and_taxonomic_group.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 175, dpi = dpi,   
 )
@@ -501,7 +638,7 @@ out_path <- here("Outputs", "Disturbance", "Manuscript Figures")
 
 ## save figure
 
-ggsave(plot = e, filename = "figure_4.tiff",
+ggsave(plot = a, filename = "figure_4.tiff",
        device = device,
        path = out_path ,units = units, width = 175, height = 150, dpi = dpi,   
 )
