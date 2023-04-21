@@ -431,12 +431,13 @@ rm(a, b, c, d, e, f, g, h, i)
 ## plot scaled trends for England for all species
 ## separately for each taxonomic group
 ## facet by BASC quarry vs. non-quarry
+## also facet by 25 year overall pop trend - increase/decrease
 ## make plot for dabbling ducks
 
 a <- ggplot(df_dab, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -448,7 +449,7 @@ a <- ggplot(df_dab, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
             axis.title.y = element_text(angle=90, vjust = 0.4, size = 12),
             axis.text.y = element_text(hjust=0.7, angle = 45, vjust=0.3))
 
-#### define filepath to read out plots 
+## define filepath to read out plots 
 
 out_path <- here("Outputs", "Pop_trends", "Scaled_plots")
 
@@ -465,7 +466,7 @@ ggsave(plot = a, filename = "scaled_dabbling_duck_trends_en.tiff",
 b <- ggplot(df_dive, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -490,7 +491,7 @@ ggsave(plot = b, filename = "scaled_diving_duck_trends_en.tiff",
 c <- ggplot(df_geese, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -527,7 +528,7 @@ df_geese_clean <- df_geese %>%
 d <- ggplot(df_geese_clean, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -552,7 +553,7 @@ ggsave(plot = d, filename = "scaled_goose_trends_cleaned_en.tiff",
 e <- ggplot(df_swans, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -577,7 +578,7 @@ ggsave(plot = e, filename = "scaled_swan_trends_en.tiff",
 f <- ggplot(df_rails, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -602,7 +603,7 @@ ggsave(plot = f, filename = "scaled_rail_trends_en.tiff",
 g <- ggplot(df_large_waders, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -627,7 +628,7 @@ ggsave(plot = g, filename = "scaled_large_wader_trends_en.tiff",
 h <- ggplot(df_small_waders, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +
@@ -652,7 +653,7 @@ ggsave(plot = h, filename = "scaled_small_wader_trends_en.tiff",
 i <- ggplot(df_crane, aes(x = WeBSYear, y = ScaledIndexEn, col = Common_Name)) +
       geom_point(size = 0.5) +
       geom_line() +
-      facet_wrap(~ Quarry_Species) +
+      facet_grid(rows = vars(Pop_trend_25yr), cols = vars(Quarry_Species)) +
       scale_fill_manual(values = c("#660099", "#CC0033", "#FFCC00")) +
       labs(x = "WeBS Year", y = "Scaled Index", col = "Species") +
       theme_bw() +

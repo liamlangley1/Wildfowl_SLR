@@ -1,53 +1,53 @@
-BTO_Code,Species_Name,Common_Name,Taxonomic_Group,BASC_Quarry_Species
-AN,Grus grus,Crane,Crane,No
-SV,Spatula cylpatea,Shoveler,Dabbling Ducks,Yes
-GA,Mareca strepera,Gadwall,Dabbling Ducks,Yes
-WN,Mareca penelope,Wigeon,Dabbling Ducks,Yes
-MA,Anas platyrhynchos,Mallard,Dabbling Ducks,Yes
-PT,Anas acuta,Pintail,Dabbling Ducks,Yes
-T.,Anas crecca,Teal,Dabbling Ducks,Yes
-SU,Tadorna tadorna,Shelduck,Dabbling Ducks,No
-PO,Aythya ferina,Pochard,Diving Ducks,Yes
-TU,Aythya fuligula,Tufted Duck,Diving Ducks,Yes
-GN,Bucephela clanga,Goldeneye,Diving Ducks,Yes
-SP,Aythya marila,Scaup,Diving Ducks,No
-EE,Somateria mollisima,Eider (except Shetland),Diving Ducks,No
-SY,Mergellus albellus,Smew,Diving Ducks,No
-GD,Mergus merganser,Goosander,Diving Ducks,No
-RM,Mergus serrator,Red-breasted Merganser,Diving Ducks,No
-CG,Branta candensis,Canada Goose,Geese,Yes
-GJ,Anser anser,Greylag Goose,Geese,Yes
-JA,Anser anser,Greylag Goose (British/Irish),Geese,Yes
-JE,Anser anser,Greylag Goose (re-established),Geese,Yes
-PG,Anser brachyrhynchus,Pink-footed Goose,Geese,Yes
-WG,Anser albifrons,White-fronted Goose,Geese,Yes
-EW,Anser albifrons albifrons,White-fronted Goose (European - albifrons),Geese,Yes
-BG,Branta bernicla,Brent Goose,Geese,No
-DB,Branta bernicla bernicla ,Brent Goose (Dark-bellied - bernicla),Geese,No
-PB,Branta bernicla hrota,Brent Goose (Light-bellied - hrota),Geese,No
-QS,Brant bernicla hrota,Brent Goose (Svalbard Light-bellied),Geese,No
-QN,Brant bernicla hrota,Brent Goose (Light-bellied of Nearctic origin),Geese,No
-BY,Branta leucopsis,Barnacle Goose,Geese,No
-YE,Branta leucopsis,Barnacle Goose (naturalised),Geese,No
-BE,Anser fabalis/serrirostirs,Taiga/Tundra Bean Goose,Geese,No
-XF,Anser fabalis,Taiga Bean Goose,Geese,No
-MH,Gallinula chloropus,Moorhen,Rails,Yes
-CO,Fulica atra,Coot,Rails,Yes
-MS,Cygnus olor,Mute Swan,Swans,No
-BS,Cygnus columbianus bewickii,Bewick's Swan,Swans,No
-WS,Cygnus cygnus,Whooper Swan,Swans,No
-SN,Gallinago gallinago,Snipe,Small Waders,Yes
-OC,Haematopus ostralegus,Oystercatcher,Large Waders,No
-AV,Recurvirostra avocetta,Avocet,Large Waders,No
-L.,Vanellus vanellus,Lapwing,Large Waders,No
-GP,Pluvialis apricaria,Golden Plover,Large Waders,No
-GV,Pluvialis squatarola,Grey Plover,Large Waders,No
-RP,Charadrius hiaticula,Ringed Plover,Small Waders,No
-CU,Numenius arquata,Curlew,Large Waders,No
-BA,Limosa lapponica,Bar-tailed Godwit,Large Waders,No
-BW,Limosa limosa,Black-tailed Godwit,Large Waders,No
-KN,Calidris canute,Knot,Small Waders,No
-RU,Calidris pugnax,Ruff,Small Waders,No
-DN,Calidris alpina,Dunlin,Small Waders,No
-JS,Lymnocryptes minimus,Jack Snipe,Small Waders,No
-RK,Tringa totanus,Redshank,Small Waders,No
+BTO_Code,Species_Name,Common_Name,Taxonomic_Group,BASC_Quarry_Species,Pop_trend_25yr
+AN,Grus grus,Crane,Crane,No,Increase
+SV,Spatula cylpatea,Shoveler,Dabbling Ducks,Yes,Increase
+GA,Mareca strepera,Gadwall,Dabbling Ducks,Yes,Increase
+WN,Mareca penelope,Wigeon,Dabbling Ducks,Yes,Decline
+MA,Anas platyrhynchos,Mallard,Dabbling Ducks,Yes,Decline
+PT,Anas acuta,Pintail,Dabbling Ducks,Yes,Decline
+T.,Anas crecca,Teal,Dabbling Ducks,Yes,Increase
+SU,Tadorna tadorna,Shelduck,Dabbling Ducks,No,Decline
+PO,Aythya ferina,Pochard,Diving Ducks,Yes,Decline
+TU,Aythya fuligula,Tufted Duck,Diving Ducks,Yes,Increase
+GN,Bucephela clanga,Goldeneye,Diving Ducks,Yes,Decline
+SP,Aythya marila,Scaup,Diving Ducks,No,Decline
+EE,Somateria mollisima,Eider (except Shetland),Diving Ducks,No,Decline
+SY,Mergellus albellus,Smew,Diving Ducks,No,Decline
+GD,Mergus merganser,Goosander,Diving Ducks,No,Decline
+RM,Mergus serrator,Red-breasted Merganser,Diving Ducks,No,Decline
+CG,Branta candensis,Canada Goose,Geese,Yes,Increase
+GJ,Anser anser,Greylag Goose,Geese,Yes,Increase
+JA,Anser anser,Greylag Goose (British/Irish),Geese,Yes,Increase
+JE,Anser anser,Greylag Goose (re-established),Geese,Yes,Increase
+PG,Anser brachyrhynchus,Pink-footed Goose,Geese,Yes,Increase
+WG,Anser albifrons,White-fronted Goose,Geese,Yes,Decline
+EW,Anser albifrons albifrons,White-fronted Goose (European - albifrons),Geese,Yes,Decline
+BG,Branta bernicla,Brent Goose,Geese,No,Decline
+DB,Branta bernicla bernicla ,Brent Goose (Dark-bellied - bernicla),Geese,No,Decline
+PB,Branta bernicla hrota,Brent Goose (Light-bellied - hrota),Geese,No,Increase
+QS,Brant bernicla hrota,Brent Goose (Svalbard Light-bellied),Geese,No,Increase
+QN,Brant bernicla hrota,Brent Goose (Light-bellied of Nearctic origin),Geese,No,Increase
+BY,Branta leucopsis,Barnacle Goose,Geese,No,Increase
+YE,Branta leucopsis,Barnacle Goose (naturalised),Geese,No,Increase
+BE,Anser fabalis/serrirostirs,Taiga/Tundra Bean Goose,Geese,No,Decline
+XF,Anser fabalis,Taiga Bean Goose,Geese,No,Decline
+MH,Gallinula chloropus,Moorhen,Rails,Yes,Decline
+CO,Fulica atra,Coot,Rails,Yes,Decline
+MS,Cygnus olor,Mute Swan,Swans,No,Increase
+BS,Cygnus columbianus bewickii,Bewick's Swan,Swans,No,Decline
+WS,Cygnus cygnus,Whooper Swan,Swans,No,Increase
+SN,Gallinago gallinago,Snipe,Small Waders,Yes,Decline
+OC,Haematopus ostralegus,Oystercatcher,Large Waders,No,Decline
+AV,Recurvirostra avocetta,Avocet,Large Waders,No,Increase
+L.,Vanellus vanellus,Lapwing,Large Waders,No,Decline
+GP,Pluvialis apricaria,Golden Plover,Large Waders,No,Increase
+GV,Pluvialis squatarola,Grey Plover,Large Waders,No,Decline
+RP,Charadrius hiaticula,Ringed Plover,Small Waders,No,Decline
+CU,Numenius arquata,Curlew,Large Waders,No,Decline
+BA,Limosa lapponica,Bar-tailed Godwit,Large Waders,No,Decline
+BW,Limosa limosa,Black-tailed Godwit,Large Waders,No,Increase
+KN,Calidris canute,Knot,Small Waders,No,Decline
+RU,Calidris pugnax,Ruff,Small Waders,No,Decline
+DN,Calidris alpina,Dunlin,Small Waders,No,Decline
+JS,Lymnocryptes minimus,Jack Snipe,Small Waders,No,Decline
+RK,Tringa totanus,Redshank,Small Waders,No,Decline
