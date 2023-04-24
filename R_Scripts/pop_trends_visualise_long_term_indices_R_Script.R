@@ -107,7 +107,7 @@ df_trends$WeBSYear <- as.numeric(as.vector(df_trends$WeBSYear))
 
 df_trends_clean <- df_trends %>%
   filter(IndexEn != "NA") %>%
-  filter(WeBSYear >= 1995) %>%
+  filter(WeBSYear >= 1994) %>%
   filter(BTO_Code != "GD") %>%
   filter(BTO_Code != "SU")
 
