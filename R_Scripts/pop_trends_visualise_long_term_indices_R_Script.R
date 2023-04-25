@@ -101,13 +101,14 @@ df_trends$SmoothedIndexEn <- as.numeric(as.vector(df_trends$SmoothedIndexEn))
 df_trends$WeBSYear <- as.numeric(as.vector(df_trends$WeBSYear))
 
 ## filter out rows with NA values
-## filter out years before 1995 - last 25 years
+## filter out years 1993/94 to 2018/19 - match Table 1
 ## remove Goosander - gets culled so not appropriate non-target comparison
-## remove shelduck - not a true dabbling duck
+## remove Shelduck - not a true dabbling duck
 
 df_trends_clean <- df_trends %>%
   filter(IndexEn != "NA") %>%
-  filter(WeBSYear >= 1994) %>%
+  filter(WeBSYear >= 1993) %>%
+  filter(WeBSYear <= 2018) %>%
   filter(BTO_Code != "GD") %>%
   filter(BTO_Code != "SU")
 
