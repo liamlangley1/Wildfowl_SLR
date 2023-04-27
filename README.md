@@ -23,7 +23,7 @@ A folder containing all R scripts used to create figures for the report.
 ### Systematic Reviews
 
 - Data/Disturbance_final_data_cleaned.csv - File containing information extracted from our final sample of papers read for the Disturbance SLR. This includes some papers which were ultimately removed from the final sample.
-- Data/DMortality_final_data_cleaned.csv - File containing information extracted from our final sample of papers read for the Disturbance SLR. This includes some papers which were ultimately removed from the final sample.
+- Data/DMortality_final_data_cleaned.csv - File containing information extracted from our final sample of papers read for the Mortality SLR. This includes some papers which were ultimately removed from the final sample.
 
 ### Population Trends summary
 
